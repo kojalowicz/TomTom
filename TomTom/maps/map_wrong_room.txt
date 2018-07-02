@@ -1,0 +1,10 @@
+r0 n:r3
+r1 s:r3 e:r2
+r2 s:r5 w:r1
+r3 n:r1 s:r0 w:r4
+r4 e:r3
+r55 n:r2 e:r6
+r6 s:r8 e:r7 w:r5
+r4 s:r9 w:r6
+r8 n:r6 e:r9
+r9 n:r7 w:r8
