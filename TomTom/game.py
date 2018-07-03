@@ -32,7 +32,7 @@ class Map:
                 if direction[0] in self.moves.keys():
                     room.possible_directions[direction[0]] = direction[1]
                 else:
-                    print("Error in name directions")
+                    print("Error in map: \n directions name: " + str(direction[0]))
                     return False
                 i += 1
             list_of_rooms.append(room)
@@ -65,7 +65,7 @@ class Map:
                                         room_to_move.position_y = room.position_y + moves[direction][1]
                                     elif room_to_move.position_x != room.position_x + moves[direction][0]\
                                             or room_to_move.position_y != room.position_y + moves[direction][1]:
-                                        print("Error in map\n" +
+                                        print("Error in map: \n" +
                                             "From: " + room.name + " To: " + room_to_move.name + " direction: " + direction)
                                         return False
 
@@ -73,7 +73,7 @@ class Map:
             self.list_of_rooms = list_of_rooms
         return list_of_rooms
 
-    def name_list(self, list_of_rooms=None):
+    def repeated_name(self, list_of_rooms=None):
         if list_of_rooms is None:
             list_of_rooms = self.list_of_rooms
         names = []
@@ -81,10 +81,11 @@ class Map:
             if room.name not in names:
                 names.append(room.name)
             else:
+                print("Error in map: \n repeated name: " + str(room.name))
                 return False
         return names
 
-    def name_moves(self, list_of_rooms=None):
+    def possible_room_to_move(self, list_of_rooms=None):
         if list_of_rooms is None:
             list_of_rooms = self.list_of_rooms
         moves = []
@@ -94,12 +95,13 @@ class Map:
                     moves.append(move)
         for room in list_of_rooms:
             if room.name not in moves:
+                print("Error in map: \n no name: " + str(room.name) + " in possible directions.")
                 return False
         return moves
 
     def print_position(self, text_map):
         if self.mapping() is False:
-            print("Is mistake in map in:")
+            print("Error in map:")
             self.mapping()
         else:
             for room in self.list_of_rooms:
@@ -110,13 +112,15 @@ class Map:
     def mapping(self):
         list_elements = self.creating_list_elements()
         locations = self.rooms_positions()
-        names = self.name_list()
-        moves = self.name_moves()
+        names = self.repeated_name()
+        moves = self.possible_room_to_move()
         if list_elements is not False:
             if locations is not False:
                 if names is not False:
                     if moves is not False:
                         return self.list_of_rooms
+
+        print("Error in map: \n check the map.")
         return False
 
 
